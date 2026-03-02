@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>최혜원 | AI Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+KR:wght@300;400;600&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6F0;
+    --beige: #F0E8DC;
+    --warm-brown: #C4A882;
+    --sage: #A8B5A0;
+    --dusty-rose: #D4A5A0;
+    --text-dark: #3D3530;
+    --text-mid: #7A6E68;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--text-dark);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: 'AI';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 28vw;
+    color: var(--beige);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -10px;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 110px);
+    line-height: 1.0;
+    font-weight: 700;
+    color: var(--text-dark);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--warm-brown);
+  }
+
+  .hero-handle {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--text-mid);
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-handle a {
+    color: var(--dusty-rose);
+    text-decoration: none;
+  }
+
+  .hero-desc {
+    margin-top: 40px;
+    max-width: 480px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-mid);
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 1s;
+  }
+
+  .badge {
+    padding: 8px 18px;
+    border: 1px solid var(--warm-brown);
+    border-radius: 100px;
+    font-size: 12px;
+    color: var(--warm-brown);
+    letter-spacing: 1px;
+  }
+
+  /* SECTION */
+  section {
+    padding: 100px 60px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: var(--sage);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  /* ABOUT */
+  .about {
+    background: var(--beige);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-text {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 15px;
+    line-height: 2;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .about-text p + p { margin-top: 20px; }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .timeline-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dusty-rose);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .timeline-content .date {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--sage);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .timeline-content .desc {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* TOOLS */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  .tool-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(196,168,130,0.2);
+  }
+
+  .tool-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(196,168,130,0.2);
+  }
+
+  .tool-icon { font-size: 32px; margin-bottom: 12px; }
+  .tool-name { font-size: 13px; font-weight: 400; color: var(--text-dark); letter-spacing: 1px; }
+  .tool-cat { font-size: 11px; color: var(--text-mid); margin-top: 4px; }
+
+  /* PORTFOLIO GRID */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .portfolio-item {
+    aspect-ratio: 1;
+    background: var(--beige);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .portfolio-item.wide {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+  }
+
+  .portfolio-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--beige), var(--cream));
+    transition: all 0.4s ease;
+    padding: 20px;
+  }
+
+  .portfolio-item:hover .portfolio-placeholder {
+    background: linear-gradient(135deg, var(--warm-brown), var(--dusty-rose));
+  }
+
+  .portfolio-item:hover .p-label,
+  .portfolio-item:hover .p-cat { color: white; }
+
+  .p-icon { font-size: 28px; }
+  .p-label { font-size: 13px; color: var(--text-dark); font-weight: 400; text-align: center; }
+  .p-cat { font-size: 11px; color: var(--text-mid); letter-spacing: 2px; text-transform: uppercase; }
+
+  /* GROWTH */
+  .growth {
+    background: var(--text-dark);
+    color: var(--cream);
+  }
+
+  .growth .section-label { color: var(--warm-brown); }
+  .growth .section-label::after { background: var(--warm-brown); }
+  .growth .section-title { color: var(--cream); }
+
+  .growth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-top: 48px;
+  }
+
+  .growth-card {
+    background: rgba(255,255,255,0.05);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .growth-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: rgba(255,255,255,0.04);
+    font-weight: 700;
+  }
+
+  .growth-period { font-size: 10px; letter-spacing: 3px; color: var(--warm-brown); text-transform: uppercase; margin-bottom: 16px; }
+  .growth-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--cream); margin-bottom: 12px; }
+  .growth-desc { font-family: 'Noto Serif KR', serif; font-size: 13px; line-height: 1.9; color: rgba(250,246,240,0.6); font-weight: 300; }
+
+  /* CONTACT */
+  .contact { text-align: center; padding: 120px 60px; }
+  .contact .section-label { justify-content: center; }
+  .contact .section-label::after { display: none; }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 48px;
+    padding: 18px 40px;
+    background: var(--text-dark);
+    color: var(--cream);
+    text-decoration: none;
+    border-radius: 100px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .contact-link:hover { background: var(--warm-brown); transform: scale(1.05); }
+
+  .footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--beige);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-mid);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .hero { padding: 60px 30px; }
+    section { padding: 60px 30px; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
+    .growth-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .portfolio-item.wide { grid-column: span 2; }
+    .hero::after { font-size: 40vw; }
+    .footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <p class="hero-tag">AI Creator Portfolio</p>
+  <h1 class="hero-name">최혜원<br><em>Choi Hyewon</em></h1>
+  <p class="hero-handle">Instagram&nbsp;&nbsp;→&nbsp;&nbsp;<a href="https://instagram.com/aican.choi" target="_blank">@aican.choi</a></p>
+  <p class="hero-desc">AI가 처음이라면, 저 보세요.<br>2025년 11월, 평범한 주부에서 AI 크리에이터로.<br>매일 배우고, 만들고, 기록합니다.</p>
+  <div class="hero-badges">
+    <span class="badge">Midjourney</span>
+    <span class="badge">Kling AI</span>
+    <span class="badge">Vibe Coding</span>
+    <span class="badge">Canva</span>
+    <span class="badge">AI Video</span>
+  </div>
+</section>
+
+<section class="about">
+  <div class="reveal">
+    <p class="section-label">About</p>
+    <h2 class="section-title">AI가 처음이라면,<br>저 보세요.</h2>
+    <div class="about-text">
+      <p>개발자도 아니고, 디자이너도 아닙니다. 그냥 평범한 40대 주부예요. 2025년 11월, 처음으로 AI 툴을 열었고, 그날부터 뭔가 달라졌어요.</p>
+      <p>미드저니로 이미지를 만들고, Kling으로 영상을 만들고, 바이브코딩으로 앱을 만들었어요. 아직 배우는 중이지만, 그 과정 자체가 콘텐츠가 됐어요.</p>
+      <p>AI를 시작하고 싶은데 어디서부터 해야 할지 모르는 분들, 저를 보세요.</p>
+    </div>
+  </div>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <p class="date">2025. 11</p>
+        <p class="desc">AI 첫 시작 — Midjourney, GPT 탐색</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <p class="date">2025. 12</p>
+        <p class="desc">파스텔 레트로 숫자 시리즈 제작</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <p class="date">2026. 01</p>
+        <p class="desc">Kling AI 영상 · 실사 인물 생성<br>Vibe Coding으로 앱 제작 시작</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <p class="date">2026. 02</p>
+        <p class="desc">인스타그램 계정 @aican.choi 오픈</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <p class="date">2026. 03</p>
+        <p class="desc">포트폴리오 사이트 제작<br>AI 인생 영상 프로젝트 진행 중</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="section-label reveal">Tools</p>
+  <h2 class="section-title reveal">사용하는 AI 툴</h2>
+  <div class="tools-grid">
+    <div class="tool-card reveal"><div class="tool-icon">🎨</div><p class="tool-name">Midjourney</p><p class="tool-cat">이미지 생성</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">🎬</div><p class="tool-name">Kling AI</p><p class="tool-cat">영상 생성</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">💻</div><p class="tool-name">Vibe Coding</p><p class="tool-cat">앱 · 코딩</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">✨</div><p class="tool-name">Claude</p><p class="tool-cat">AI 어시스턴트</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">🖼️</div><p class="tool-name">Canva</p><p class="tool-cat">편집 · 디자인</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">🤖</div><p class="tool-name">Gemini</p><p class="tool-cat">AI 어시스턴트</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">🔬</div><p class="tool-name">Google AI Studio</p><p class="tool-cat">AI 실험</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">💎</div><p class="tool-name">Google Opal</p><p class="tool-cat">이미지 생성</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">💡</div><p class="tool-name">Mixboard</p><p class="tool-cat">아이디어 보드</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">🎥</div><p class="tool-name">Veo3 (Flow)</p><p class="tool-cat">영상 생성</p></div>
+    <div class="tool-card reveal"><div class="tool-icon">🧠</div><p class="tool-name">ChatGPT</p><p class="tool-cat">AI 어시스턴트</p></div>
+  </div>
+</section>
+
+<section style="background: var(--beige); padding-bottom: 40px;">
+  <p class="section-label reveal">Portfolio</p>
+  <h2 class="section-title reveal">직접 만든 작품들</h2>
+  <p class="reveal" style="font-family:'Noto Serif KR',serif; font-size:14px; color:var(--text-mid); line-height:1.9; max-width:500px; font-weight:300;">
+    처음 만든 어설픈 작품부터 지금까지 — 성장의 기록이에요.
+  </p>
+</section>
+<div class="portfolio-grid">
+  <div class="portfolio-item wide">
+    <div class="portfolio-placeholder">
+      <span class="p-icon">🌸</span>
+      <p class="p-label">파스텔 레트로 숫자 시리즈</p>
+      <p class="p-cat">Midjourney · 이미지</p>
+    </div>
+  </div>
+  <div class="portfolio-item">
+    <div class="portfolio-placeholder">
+      <span class="p-icon">👤</span>
+      <p class="p-label">AI 실사 인물</p>
+      <p class="p-cat">Midjourney</p>
+    </div>
+  </div>
+  <div class="portfolio-item">
+    <div class="portfolio-placeholder">
+      <span class="p-icon">🎬</span>
+      <p class="p-label">AI 광고 영상</p>
+      <p class="p-cat">Kling AI</p>
+    </div>
+  </div>
+  <div class="portfolio-item">
+    <div class="portfolio-placeholder">
+      <span class="p-icon">🛍️</span>
+      <p class="p-label">상세페이지</p>
+      <p class="p-cat">AI + Canva</p>
+    </div>
+  </div>
+  <div class="portfolio-item">
+    <div class="portfolio-placeholder">
+      <span class="p-icon">📱</span>
+      <p class="p-label">바이브코딩 앱</p>
+      <p class="p-cat">Vibe Coding</p>
+    </div>
+  </div>
+  <div class="portfolio-item">
+    <div class="portfolio-placeholder">
+      <span class="p-icon">🌿</span>
+      <p class="p-label">빈티지 콜라주</p>
+      <p class="p-cat">Midjourney × Canva</p>
+    </div>
+  </div>
+</div>
+
+<section class="growth">
+  <p class="section-label reveal">Growth</p>
+  <h2 class="section-title reveal">처음과 지금</h2>
+  <div class="growth-grid">
+    <div class="growth-card reveal" data-num="01">
+      <p class="growth-period">2025. 11 — 시작</p>
+      <h3 class="growth-title">처음 만든 이미지</h3>
+      <p class="growth-desc">프롬프트가 뭔지도 몰랐어요. 그냥 "꽃 그려줘" 했던 시절. 결과물은 엉망이었지만, 신기했어요.</p>
+    </div>
+    <div class="growth-card reveal" data-num="02">
+      <p class="growth-period">2026. 03 — 현재</p>
+      <h3 class="growth-title">지금 만드는 것들</h3>
+      <p class="growth-desc">실사 인물, 광고 영상, 앱 제작까지. 4개월 만에 여기까지 왔어요. 아직 배우는 중이에요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <p class="section-label reveal">Contact</p>
+  <h2 class="section-title reveal">함께 성장해요</h2>
+  <p class="reveal" style="font-family:'Noto Serif KR',serif; font-size:15px; color:var(--text-mid); line-height:2; margin-top:16px; font-weight:300;">
+    AI가 처음이라면, 저 보세요.<br>저도 처음이었으니까요.
+  </p>
+  <a href="https://instagram.com/aican.choi" target="_blank" class="contact-link reveal">
+    📷 &nbsp; @aican.choi
+  </a>
+</section>
+
+<footer class="footer">
+  <span>© 2026 최혜원 · aican.choi</span>
+  <span style="font-family:'Playfair Display',serif; font-style:italic; color:var(--warm-brown);">AI Creator</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
